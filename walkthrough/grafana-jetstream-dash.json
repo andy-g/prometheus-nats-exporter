@@ -740,7 +740,7 @@
       "fieldConfig": {
         "defaults": {
           "custom": {},
-          "unit": "mps"
+          "unit": "m/s"
         },
         "overrides": []
       },
@@ -807,7 +807,7 @@
       },
       "yaxes": [
         {
-          "format": "mps",
+          "format": "m/s",
           "label": null,
           "logBase": 1,
           "max": null,
@@ -852,7 +852,7 @@
       "fieldConfig": {
         "defaults": {
           "custom": {},
-          "unit": "mps"
+          "unit": "m/s"
         },
         "overrides": []
       },
@@ -899,7 +899,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(jetstream_consumer_num_pending{server_id=~\"$server\",stream_name=~\"$stream\",consumer_name=~\"$consumer\"}[$__rate_interval])+rate(jetstream_consumer_delivered_consumer_seq{server_id=~\"$server\",stream_name=~\"$stream\",consumer_name=~\"$consumer\"}[$__rate_interval])) by (consumer_name)",
+          "expr": "sum(delta(jetstream_consumer_num_pending{server_id=~\"$server\",stream_name=~\"$stream\",consumer_name=~\"$consumer\"}[$__rate_interval])+delta(jetstream_consumer_delivered_consumer_seq{server_id=~\"$server\",stream_name=~\"$stream\",consumer_name=~\"$consumer\"}[$__rate_interval])) by (consumer_name) / ($__interval_ms / 1000 * 4)",
           "hide": false,
           "instant": false,
           "interval": "",
@@ -908,7 +908,7 @@
           "refId": "B"
         },
         {
-          "expr": "- sum(rate(jetstream_consumer_delivered_consumer_seq{server_id=~\"$server\",stream_name=~\"$stream\",consumer_name=~\"$consumer\",consumer_name=~\"$consumer\"}[$__rate_interval])) by (consumer_name)",
+          "expr": "- sum(delta(jetstream_consumer_delivered_consumer_seq{server_id=~\"$server\",stream_name=~\"$stream\",consumer_name=~\"$consumer\",consumer_name=~\"$consumer\"}[$__rate_interval])) by (consumer_name) / ($__interval_ms / 1000 * 4)",
           "hide": false,
           "interval": "",
           "legendFormat": "{{consumer_name}} -",
@@ -935,7 +935,7 @@
       },
       "yaxes": [
         {
-          "format": "mps",
+          "format": "m/s",
           "label": null,
           "logBase": 1,
           "max": null,
@@ -943,7 +943,7 @@
           "show": true
         },
         {
-          "format": "mps",
+          "format": "m/s",
           "label": null,
           "logBase": 1,
           "max": null,
